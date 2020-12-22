@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:share/share.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,12 +39,21 @@ class _MyHomePageState extends State<MyHomePage> {
 List<String> listOfTitles = List.generate(10, (index) => lorem(paragraphs: 1,words: 10));
 List<String> listOfSubtitles = List.generate(10, (index) => lorem(paragraphs: 1,words: 2));
 List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,words: 30));
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+delete(int index){
+  setState(() {
+    listOfTitles.removeAt(index);
+    listOfContent.removeAt(index);
+    listOfSubtitles.removeAt(index);
+  });
 
+}
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
 
         title: Center(child: Text(widget.title)),
@@ -54,6 +64,42 @@ List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,wo
             itemBuilder: (context,index){
           return Card(
             child: Slidable(
+              key: Key('${listOfTitles[index]}'),
+              dismissal: SlidableDismissal(
+                dismissThresholds: <SlideActionType, double>{
+                  SlideActionType.primary: 1.0
+                },
+                child: SlidableDrawerDismissal(),
+                // onWillDismiss: (actionType) {
+                //   return showDialog<bool>(
+                //     context: context,
+                //     builder: (context) {
+                //       return AlertDialog(
+                //         title: Text('Delete'),
+                //         content: Text('Item will be deleted'),
+                //         actions: <Widget>[
+                //           FlatButton(
+                //             child: Text('Cancel'),
+                //             onPressed: () => Navigator.of(context).pop(false),
+                //           ),
+                //           FlatButton(
+                //             child: Text('Ok'),
+                //             onPressed: () => Navigator.of(context).pop(true),
+                //           ),
+                //         ],
+                //       );
+                //     },
+                //   );
+                // },
+                onDismissed: (actionType) {
+                  _showSnackBar(
+
+                      actionType == SlideActionType.primary
+                          ? 'Dismiss Archive'
+                          : 'Dimiss Delete');
+                  delete(index);
+                },
+              ),
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
               child: Container(
@@ -79,7 +125,7 @@ List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,wo
                   caption: 'Share',
                   color: Colors.indigo,
                   icon: Icons.share,
-                  onTap: () => _showSnackBar('Share'),
+                  onTap: () => Share.share('${listOfTitles[index]}\n\n ${listOfContent[index]}'),
                 ),
               ],
               secondaryActions: <Widget>[
@@ -93,7 +139,8 @@ List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,wo
                   caption: 'Delete',
                   color: Colors.red,
                   icon: Icons.delete,
-                  onTap: () => _showSnackBar('Delete'),
+                  onTap: () => delete(index),
+
                 ),
               ],
             ),
@@ -105,7 +152,7 @@ List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,wo
   }
 
   _showSnackBar(String s) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text(s)));
+    scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(s)));
   }
 }
 
