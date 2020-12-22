@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -36,9 +37,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 
-List<String> listOfTitles = List.generate(10, (index) => lorem(paragraphs: 1,words: 10));
+List<String> listOfTitles = List.generate(10, (index) => lorem(paragraphs: 1,words: 3));
 List<String> listOfSubtitles = List.generate(10, (index) => lorem(paragraphs: 1,words: 2));
-List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,words: 30));
+List<String> listOfContent = List.generate(10, (index) => lorem(paragraphs: 3,words: 600));
 GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 delete(int index){
   setState(() {
@@ -48,6 +49,7 @@ delete(int index){
   });
 
 }
+ExpandableController _expandableController = ExpandableController(initialExpanded: false);
 
   @override
   Widget build(BuildContext context) {
@@ -70,27 +72,7 @@ delete(int index){
                   SlideActionType.primary: 1.0
                 },
                 child: SlidableDrawerDismissal(),
-                // onWillDismiss: (actionType) {
-                //   return showDialog<bool>(
-                //     context: context,
-                //     builder: (context) {
-                //       return AlertDialog(
-                //         title: Text('Delete'),
-                //         content: Text('Item will be deleted'),
-                //         actions: <Widget>[
-                //           FlatButton(
-                //             child: Text('Cancel'),
-                //             onPressed: () => Navigator.of(context).pop(false),
-                //           ),
-                //           FlatButton(
-                //             child: Text('Ok'),
-                //             onPressed: () => Navigator.of(context).pop(true),
-                //           ),
-                //         ],
-                //       );
-                //     },
-                //   );
-                // },
+               
                 onDismissed: (actionType) {
                   _showSnackBar(
 
@@ -104,14 +86,26 @@ delete(int index){
               actionExtentRatio: 0.25,
               child: Container(
                 color: Colors.white,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.indigoAccent,
-                    child: Text(listOfTitles[index]),
-                    foregroundColor: Colors.white,
+                child: ExpandableNotifier(
+                  child: ScrollOnExpand(
+                    scrollOnExpand: true,
+                    scrollOnCollapse: false,
+                    child: ExpandablePanel(
+                      controller: _expandableController,
+                      //builder: ,
+                      header: Center(child: Text(listOfTitles[index],style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)),
+                      collapsed: Text(listOfContent[index], softWrap: true, maxLines: 3, overflow: TextOverflow.ellipsis,),
+                      expanded: GestureDetector(
+                        onDoubleTap: (){
+                          setState(() {
+                            _expandableController.expanded=false;
+                          });
+                        },
+                          child: Text(listOfContent[index], softWrap: true, )),
+
+
+                    ),
                   ),
-                  title: Text(listOfTitles[index]),
-                  subtitle: Text(listOfSubtitles[index]),
                 ),
               ),
               actions: <Widget>[
@@ -153,6 +147,7 @@ delete(int index){
 
   _showSnackBar(String s) {
     scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(s)));
+
   }
 }
 
