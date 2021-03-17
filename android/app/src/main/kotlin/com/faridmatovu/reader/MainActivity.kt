@@ -1,4 +1,4 @@
-package com.example.news_app
+package com.faridmatovu.reader
 
 import io.flutter.embedding.android.FlutterActivity
 

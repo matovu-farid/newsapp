@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "768482152606",
+    "project_id": "stories-9084d",
+    "storage_bucket": "stories-9084d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768482152606:android:595170d354fff8eb1d2b8f",
+        "android_client_info": {
+          "package_name": "com.faridmatovu.reader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768482152606-6eel5iqluu22bk318td3tanlf6jki4cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faridmatovu.reader",
+            "certificate_hash": "ae564710b747230e43635f6a9a1a1d1e68458c07"
+          }
+        },
+        {
+          "client_id": "768482152606-agchqok1bjhq5foe1prt312vmf49queg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU3lIDdqC7UTumPHdHOd_8stW8LuBV36c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768482152606-agchqok1bjhq5foe1prt312vmf49queg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "768482152606-di6alf5ov9ke72jh1hevb82fankntd4f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.writersApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768482152606:android:ab23f807f39a43061d2b8f",
+        "android_client_info": {
+          "package_name": "com.faridmatovu.writer_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768482152606-dkgjjsofnkicdvue5jjga5voc8b9m3ub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faridmatovu.writer_app",
+            "certificate_hash": "4ad9b48bf2fbc18fda5e03164d34112626f7a167"
+          }
+        },
+        {
+          "client_id": "768482152606-agchqok1bjhq5foe1prt312vmf49queg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU3lIDdqC7UTumPHdHOd_8stW8LuBV36c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768482152606-agchqok1bjhq5foe1prt312vmf49queg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "768482152606-di6alf5ov9ke72jh1hevb82fankntd4f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.writersApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
