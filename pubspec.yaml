@@ -21,11 +21,16 @@ environment:
   sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
-  firebase_core:
+  provider:
+  material_floating_search_bar: ^0.3.3
   flutter_slidable: ^0.5.7
   flutter_lorem: ^2.0.0
+  articlemodel:
+    path: ../shared_article_packages/articlemodel
   articlewidgets:
     path: ../shared_article_packages/articlewidgets
+  firebase_wrapper:
+    path: ../shared_lib/firebase_wrapper
   flutter:
     sdk: flutter
 

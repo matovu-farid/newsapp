@@ -1,15 +1,26 @@
+import 'package:articlemodel/articlemodel.dart';
 import 'package:articlewidgets/articlewidgets.dart';
 import 'package:expandable/expandable.dart';
+import 'package:firebase_wrapper/firebase_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
 import 'created_widgets/pages/search.dart';
 import 'created_widgets/pages/timeline.dart';
 
+
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(FirebaseWrapper(child:
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider<WritersModel>(create: (_)=>WritersModel(),),
+      ChangeNotifierProvider(create: (_)=>ViewModel())
+    ],
+      child: MyApp())));
 }
 
 
