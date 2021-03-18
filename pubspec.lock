@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  edit_distance:
+    dependency: transitive
+    description:
+      name: edit_distance
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   expandable:
     dependency: transitive
     description:

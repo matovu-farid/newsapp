@@ -1,18 +1,46 @@
+import 'dart:async';
+
+import 'package:articlemodel/articlemodel.dart';
+import 'package:firebase_wrapper/firebase_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:provider/provider.dart';
 
 class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Stack(
+      children: [
+        MyFloatingSearchBar()
+      ],
+    );
   }
 }
-class MyFloatingSearchBar extends StatelessWidget{
+class MyFloatingSearchBar extends StatefulWidget{
   //final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  @override
+  _MyFloatingSearchBarState createState() => _MyFloatingSearchBarState();
+}
+
+class _MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
+StreamController<List<String>> _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = StreamController<List<String>>();
+
+  }
+
+  @override
+  void dispose() {
+    _controller.close();
+    super.dispose();
+  }
+
 Widget build(BuildContext context){
   final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
-  return FloatingSearchBar(
+  return  FloatingSearchBar(
     hint: 'Search...',
     scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
     transitionDuration: const Duration(milliseconds: 800),
@@ -22,18 +50,21 @@ Widget build(BuildContext context){
     openAxisAlignment: 0.0,
     width: isPortrait ? 600 : 500,
     debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
+    onQueryChanged: (query) async{
+       List<String> list= await Provider.of<WritersModel>(context,listen: false).searchQuery(query);
+       _controller.sink.add(list);
+
     },
-    // Specify a custom transition to be used for
-    // animating between opened and closed stated.
+
     transition: CircularFloatingSearchBarTransition(),
     actions: [
       FloatingSearchBarAction(
         showIfOpened: false,
         child: CircularButton(
-          icon: const Icon(Icons.place),
-          onPressed: () {},
+          icon: const Icon(Icons.book),
+          onPressed: () {
+
+          },
         ),
       ),
       FloatingSearchBarAction.searchToClear(
@@ -41,19 +72,33 @@ Widget build(BuildContext context){
       ),
     ],
     builder: (context, transition) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Material(
-          color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: Colors.accents.map((color) {
-              return Container(height: 112, color: color);
-            }).toList(),
-          ),
-        ),
+      return StreamBuilder<List<String>>(
+          stream: _controller.stream,
+          builder: (context, snapshot) {
+            if(snapshot.hasError)Center(child: Text(snapshot.error));
+
+            if(snapshot.hasData)
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Material(
+                color: Colors.white,
+                elevation: 4.0,
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.6,
+                  child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (_,index){
+                        return Text(snapshot.data[index]);
+                      }),
+                ),
+              ),
+            );
+              return Center(child: CircularProgressIndicator());
+          }
       );
     },
   );
-}}
+}
+
+
+}
