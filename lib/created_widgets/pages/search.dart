@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
+
 
 import 'package:articlemodel/articlemodel.dart';
-import 'package:firebase_wrapper/firebase_wrapper.dart';
-import 'package:firebasefunctions/firebasefunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:news_app/created_widgets/writer_profile.dart';
 import 'package:provider/provider.dart';
 
 class Search extends StatelessWidget {
@@ -42,7 +40,6 @@ StreamController<List<Map<String,String>>> _controller;
 
 Widget build(BuildContext context){
   final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-  WritersModel model = Provider.of<WritersModel>(context);
 
   return  FloatingSearchBar(
     hint: 'Search...',
@@ -92,34 +89,26 @@ Widget build(BuildContext context){
                   child: ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (_,index){
-                        return Card(child: Center(child:
-                        ListTile(
-                          leading: Container(
-                            height: 40,
-                            width: 40,
-                            child: CircleAvatar(
-                              child: Image.network(snapshot.data[index]['url']),
-                              // child: StreamBuilder<Uint8List>(
-                              //   stream :model.fetchProfilePic(snapshot.data[index]).asStream(),
-                              //   builder: (context, imagesnapshot) {
-                              //     print(imagesnapshot.connectionState);
-                              //
-                              //       if(snapshot.hasData){
-                              //         return Image.network(model.modelgetPicUrl(snapshot.data[index]));
-                              //
-                              //       }
-                              //       //return Container(color: Colors.black,);
-                              //
-                              //
-                              //
-                              //     return CircularProgressIndicator();
-                              //   }
-                              // )
-                            ),
-                          ),
-                            title: Text(snapshot.data[index]['name']),
+                        return GestureDetector(
+                          onTap:(){
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_)=>WriterClicked(name: snapshot.data[index]['name'], downloadurl: snapshot.data[index]['url'],)
+                            ));
+                          },
+                          child: Card(child: Center(child:
+                          ListTile(
+                            leading: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(snapshot.data[index]['url']),
 
-                        )));
+                              ),
+                            ),
+                              title: Text(snapshot.data[index]['name']),
+
+                          ))),
+                        );
                       }),
                 ),
               ),
