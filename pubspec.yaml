@@ -31,6 +31,8 @@ dependencies:
     path: ../shared_article_packages/articlewidgets
   firebase_wrapper:
     path: ../shared_lib/firebase_wrapper
+  firebasefunctions:
+    path: ../shared_lib/firebasefunctions
   flutter:
     sdk: flutter
 

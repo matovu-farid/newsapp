@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:articlemodel/articlemodel.dart';
 import 'package:firebase_wrapper/firebase_wrapper.dart';
+import 'package:firebasefunctions/firebasefunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +26,11 @@ class MyFloatingSearchBar extends StatefulWidget{
 }
 
 class _MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
-StreamController<List<String>> _controller;
+StreamController<List<Map<String,String>>> _controller;
   @override
   void initState() {
     super.initState();
-    _controller = StreamController<List<String>>();
+    _controller = StreamController<List<Map<String,String>>>();
 
   }
 
@@ -39,6 +42,7 @@ StreamController<List<String>> _controller;
 
 Widget build(BuildContext context){
   final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  WritersModel model = Provider.of<WritersModel>(context);
 
   return  FloatingSearchBar(
     hint: 'Search...',
@@ -51,7 +55,7 @@ Widget build(BuildContext context){
     width: isPortrait ? 600 : 500,
     debounceDelay: const Duration(milliseconds: 500),
     onQueryChanged: (query) async{
-       List<String> list= await Provider.of<WritersModel>(context,listen: false).searchQuery(query);
+       List<Map<String,String>> list= await Provider.of<WritersModel>(context,listen: false).searchQuery(query);
        _controller.sink.add(list);
 
     },
@@ -72,7 +76,7 @@ Widget build(BuildContext context){
       ),
     ],
     builder: (context, transition) {
-      return StreamBuilder<List<String>>(
+      return StreamBuilder<List<Map<String,String>>>(
           stream: _controller.stream,
           builder: (context, snapshot) {
             if(snapshot.hasError)Center(child: Text(snapshot.error));
@@ -84,11 +88,38 @@ Widget build(BuildContext context){
                 color: Colors.white,
                 elevation: 4.0,
                 child: Container(
-                  height: MediaQuery.of(context).size.height*0.6,
+                  height: MediaQuery.of(context).size.height*0.5,
                   child: ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (_,index){
-                        return Text(snapshot.data[index]);
+                        return Card(child: Center(child:
+                        ListTile(
+                          leading: Container(
+                            height: 40,
+                            width: 40,
+                            child: CircleAvatar(
+                              child: Image.network(snapshot.data[index]['url']),
+                              // child: StreamBuilder<Uint8List>(
+                              //   stream :model.fetchProfilePic(snapshot.data[index]).asStream(),
+                              //   builder: (context, imagesnapshot) {
+                              //     print(imagesnapshot.connectionState);
+                              //
+                              //       if(snapshot.hasData){
+                              //         return Image.network(model.modelgetPicUrl(snapshot.data[index]));
+                              //
+                              //       }
+                              //       //return Container(color: Colors.black,);
+                              //
+                              //
+                              //
+                              //     return CircularProgressIndicator();
+                              //   }
+                              // )
+                            ),
+                          ),
+                            title: Text(snapshot.data[index]['name']),
+
+                        )));
                       }),
                 ),
               ),
