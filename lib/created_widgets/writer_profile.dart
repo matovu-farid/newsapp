@@ -1,7 +1,5 @@
 import 'package:articlemodel/articlemodel.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasefunctions/firebasefunctions.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 class WriterClicked extends StatelessWidget {
   final String downloadurl;

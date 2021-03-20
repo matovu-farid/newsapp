@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "768482152606-6eel5iqluu22bk318td3tanlf6jki4cb.apps.googleusercontent.com",
+          "client_id": "768482152606-c7mkkljt290uanl40hlujag98269c6hf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.faridmatovu.reader",
-            "certificate_hash": "ae564710b747230e43635f6a9a1a1d1e68458c07"
+            "certificate_hash": "4ad9b48bf2fbc18fda5e03164d34112626f7a167"
           }
         },
         {
