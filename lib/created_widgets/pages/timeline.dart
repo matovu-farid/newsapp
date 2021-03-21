@@ -7,7 +7,7 @@ class TimeLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: CloudList(stream:Provider.of<WritersModel>(context).orignalArticlesFollowing().asStream()),
+      child: CloudList(isFromReder: true,stream:Provider.of<WritersModel>(context).orignalArticlesFollowing().asStream()),
     );
   }
 }
