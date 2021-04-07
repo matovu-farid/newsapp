@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
+  flutter_tts: ^3.0.0
   lit_firebase_auth: ^0.3.0
   font_awesome_flutter: ^9.0.0
   firebase_auth:
@@ -28,6 +29,13 @@ dependencies:
   material_floating_search_bar: ^0.3.3
   flutter_slidable: ^0.5.7
   flutter_lorem: ^2.0.0
+  mockito:
+  shared_widgets:
+    path: ../shared_lib/shared_widgets
+  profile_page:
+    path: ../shared_article_packages/profile_page
+  articleclasses:
+    path: ../shared_article_packages/articleclasses
   unathenticated_widget:
     path: ../shared_lib/unathenticated_widget
   articlemodel:
@@ -47,10 +55,14 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  test:
   change_app_package_name: ^0.1.2
   flutter_test:
     sdk: flutter
-
+  integration_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

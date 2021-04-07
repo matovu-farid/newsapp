@@ -40,8 +40,10 @@ StreamController<List<Map<String,String>>> _controller;
 
 Widget build(BuildContext context){
   final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+   WritersModel model= Provider.of<WritersModel>(context,listen: false);
 
   return  FloatingSearchBar(
+    key:Key('search_bar'),
     hint: 'Search...',
     scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
     transitionDuration: const Duration(milliseconds: 800),
@@ -50,9 +52,9 @@ Widget build(BuildContext context){
     axisAlignment: isPortrait ? 0.0 : -1.0,
     openAxisAlignment: 0.0,
     width: isPortrait ? 600 : 500,
-    debounceDelay: const Duration(milliseconds: 500),
+    // debounceDelay: const Duration(milliseconds: 500),
     onQueryChanged: (query) async{
-       List<Map<String,String>> list= await Provider.of<WritersModel>(context,listen: false).searchQuery(query);
+       List<Map<String,String>> list= await model.searchQuery(query);
        _controller.sink.add(list);
 
     },
@@ -91,8 +93,9 @@ Widget build(BuildContext context){
                       itemBuilder: (_,index){
                         return GestureDetector(
                           onTap:(){
+                            var map = snapshot.data[index];
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_)=>WriterClicked(name: snapshot.data[index]['name'], downloadurl: snapshot.data[index]['url'],)
+                                builder: (_)=>WriterClicked(name: map['name'], downloadurl: map['url'],uid:map['uid'])
                             ));
                           },
                           child: Card(child: Center(child:

@@ -1,22 +1,22 @@
 import 'package:articlemodel/articlemodel.dart';
+import 'package:articlewidgets/articlewidgets.dart';
 import 'package:firebase_wrapper/firebase_wrapper.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:news_app/created_widgets/provider_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'created_widgets/pages/search.dart';
 import 'created_widgets/pages/timeline.dart';
 import 'package:unathenticated_widget/unathenticated_widget.dart';
 
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  //debugPrintGestureArenaDiagnostics=true;
   runApp(FirebaseWrapper(
-      child: MultiProvider(providers: [
-    ChangeNotifierProvider<WritersModel>(
-      create: (_) => WritersModel(),
-    ),
-    ChangeNotifierProvider(create: (_) => ViewModel())
-  ], child: MyApp())));
+      child: ProviderWrapper(child: MyApp(),)));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.orange,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(title: 'Reader App'),
+        routes: {
+          '/':(_)=>MyHomePage(title: 'Reader App'),
+          '/Profile':(_)=>Profile()
+        },
       ),
     );
   }
@@ -47,33 +50,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> listOfTitles =
-      List.generate(10, (index) => lorem(paragraphs: 1, words: 3));
-  List<String> listOfSubtitles =
-      List.generate(10, (index) => lorem(paragraphs: 1, words: 2));
-  List<String> listOfContent =
-      List.generate(10, (index) => lorem(paragraphs: 3, words: 600));
+
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  delete(int index) {
-    setState(() {
-      listOfTitles.removeAt(index);
-      listOfContent.removeAt(index);
-      listOfSubtitles.removeAt(index);
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        drawer: MyDrawer(),
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(widget.title),
           bottom: TabBar(tabs: [
-            Tab(text: 'Search'),
+            Tab(text: 'Search',key: Key('search_tab'),),
             Tab(
               text: 'TimeLine',
+                key: Key('timeline_tab')
             )
           ]),
         ),
