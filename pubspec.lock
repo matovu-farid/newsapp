@@ -15,6 +15,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.41.2"
+  animated_stream_list:
+    dependency: transitive
+    description:
+      name: animated_stream_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  animations:
+    dependency: transitive
+    description:
+      path: "../shared_lib/animations"
+      relative: true
+    source: path
+    version: "0.0.1"
   archive:
     dependency: transitive
     description:
@@ -29,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.0"
+  article_themedata:
+    dependency: "direct main"
+    description:
+      path: "../shared_article_packages/article_themedata"
+      relative: true
+    source: path
+    version: "0.0.1"
   articleclasses:
     dependency: "direct main"
     description:
@@ -78,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
+  build_config:
+    dependency: transitive
+    description:
+      name: build_config
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.7"
   built_collection:
     dependency: transitive
     description:
@@ -120,6 +148,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  checked_yaml:
+    dependency: transitive
+    description:
+      name: checked_yaml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   circular_profile_avatar:
     dependency: transitive
     description:
@@ -183,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  comment_box:
+    dependency: transitive
+    description:
+      name: comment_box
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.15"
   compress_files:
     dependency: transitive
     description:
@@ -431,6 +473,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_native_splash:
+    dependency: "direct main"
+    description:
+      name: flutter_native_splash
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -495,6 +544,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  google_fonts:
+    dependency: transitive
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   google_sign_in:
     dependency: transitive
     description:
@@ -598,6 +654,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  json_serializable:
+    dependency: transitive
+    description:
+      name: json_serializable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.5.1"
   liquid_pull_to_refresh:
     dependency: transitive
     description:
@@ -794,6 +857,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  pubspec_parse:
+    dependency: transitive
+    description:
+      name: pubspec_parse
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.8"
   quill_delta:
     dependency: transitive
     description:
@@ -829,6 +899,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.5+4"
+  shared_preferences:
+    dependency: "direct main"
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
+  shared_preferences_linux:
+    dependency: transitive
+    description:
+      name: shared_preferences_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  shared_preferences_macos:
+    dependency: transitive
+    description:
+      name: shared_preferences_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  shared_preferences_platform_interface:
+    dependency: transitive
+    description:
+      name: shared_preferences_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  shared_preferences_web:
+    dependency: transitive
+    description:
+      name: shared_preferences_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  shared_preferences_windows:
+    dependency: transitive
+    description:
+      name: shared_preferences_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   shared_widgets:
     dependency: "direct main"
     description:
@@ -1113,7 +1225,7 @@ packages:
       name: yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "2.2.1"
   zefyr:
     dependency: transitive
     description:

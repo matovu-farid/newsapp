@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
+  shared_preferences: ^2.0.5
+  mockito:
   flutter_tts: ^3.0.0
   lit_firebase_auth: ^0.3.0
   font_awesome_flutter: ^9.0.0
@@ -29,7 +31,8 @@ dependencies:
   material_floating_search_bar: ^0.3.3
   flutter_slidable: ^0.5.7
   flutter_lorem: ^2.0.0
-  mockito:
+  article_themedata:
+    path: ../shared_article_packages/article_themedata
   shared_widgets:
     path: ../shared_lib/shared_widgets
   profile_page:
@@ -53,6 +56,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  flutter_native_splash: ^0.3.2
 
 dev_dependencies:
   test:
@@ -74,9 +78,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,3 +110,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#4e342e"
+  image: assets/splash.png
+  fill: true

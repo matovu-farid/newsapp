@@ -1,4 +1,5 @@
 
+import 'package:articleclasses/articleclasses.dart';
 import 'package:articlemodel/articlemodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:firebasefunctions/firebasefunctions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 class WriterClicked extends StatelessWidget {
-  final String downloadurl;
-  final String name;
-  final String uid;
+  final NetworkProfile networkProfile;
 
-  const WriterClicked({Key key, @required this.downloadurl,@required  this.name,@required this.uid}) : super(key: key);
+  const WriterClicked({Key key, @required this.networkProfile}) : super(key: key);
 
   Future<bool> checkFollowing(String uid)async{
     var user = FirebaseAuth.instance.currentUser.uid;
@@ -30,7 +29,7 @@ class WriterClicked extends StatelessWidget {
           children: [
             Center(child:CircleAvatar(
               radius: 90,
-              backgroundImage: NetworkImage(downloadurl),
+              backgroundImage: NetworkImage(networkProfile.picUrl),
             ),),
             StreamBuilder<DocumentSnapshot>(
                 stream: model.fireStore.collection(model.user).doc('following_chain').snapshots(),
@@ -39,20 +38,20 @@ class WriterClicked extends StatelessWidget {
                   if(snapshot.hasData&& snapshot.data.data()!=null) {
 
                     String chain = snapshot.data.data().values.first.toString();
-                    bool isFollowing = chain.contains(uid);
+                    bool isFollowing = chain.contains(networkProfile.uid);
                     return TextButton(
-                      child: Text(chain.contains(uid)?'following':'follow'),
-                      onPressed: ()async=> await model.followOrUnFollow(uid,name,isFollowing),
+                      child: Text(chain.contains(networkProfile.uid)?'following':'follow'),
+                      onPressed: ()async=> await model.followOrUnFollow(networkProfile.uid,networkProfile.name,isFollowing),
 
                     );
                   }
-                  return TextButton(onPressed: ()async=> await model.followOrUnFollow(uid,name,false),
+                  return TextButton(onPressed: ()async=> await model.followOrUnFollow(networkProfile.uid,networkProfile.name,false),
                   child: Text('follow'));
                 }
             ),
             Card(
               child: ListTile(
-                title: Text(name),
+                title: Text(networkProfile.name),
               ),
             )
           ],
