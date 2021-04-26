@@ -113,6 +113,7 @@ class TabViews extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColorLight,
 
         drawer: MyDrawer(),
         floatingActionButton: ChangeFonts(),
@@ -132,11 +133,11 @@ class TabViews extends StatelessWidget {
         ),
         body: Container(
           constraints: BoxConstraints.expand(),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/coffee-min.jpg'),
-                fit: BoxFit.cover),
-          ),
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //       image: AssetImage('assets/coffee-min.jpg'),
+          //       fit: BoxFit.cover),
+          // ),
           child: LitAuthState(
 
             unauthenticated: Unauthenticated(),
