@@ -121,9 +121,7 @@ Widget build(BuildContext context){
               if(snapshot.hasError)Center(child: Text(snapshot.error));
 
               if(snapshot.hasData) {
-                print('_'*100);
-                print(snapshot.data);
-                print('_'*100);
+
                 return ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Material(

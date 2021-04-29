@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:article_themedata/article_themedata.dart';
 import 'package:articlemodel/articlemodel.dart';
 import 'package:articlewidgets/articlewidgets.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:logging/logging.dart';
 import 'package:news_app/created_widgets/provider_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +20,11 @@ import 'package:articleclasses/articleclasses.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  //debugPrintGestureArenaDiagnostics=true;
+  //
+  // debugPrintGestureArenaDiagnostics=true;
+  Logger.root.onRecord.listen((record) {
+    print('${record.loggerName} : ${record.message}');
+  });
 
   runApp(FirebaseWrapper(
       child: ProviderWrapper(child: MyApp(),)));
@@ -44,14 +51,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage() ;
-
-
-
-
-
-
-
-
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -99,16 +98,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 class TabViews extends StatelessWidget {
-  const TabViews({
+   TabViews({
     Key key,
 
   }) : super(key: key);
 
-
+  Map<String,Widget> tabMap = {
+    'TimeLine':TimeLine(),
+    'Search':Search(),
+  };
 
   @override
   Widget build(BuildContext context) {
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
 
     return DefaultTabController(
       length: 2,
@@ -124,28 +127,24 @@ class TabViews extends StatelessWidget {
             child: Center(child: Text('Readaz',style: Theme.of(context).textTheme.headline3,)),
           ),
           bottom: TabBar(tabs: [
-            Tab(text: 'Search',key: Key('search_tab'),),
+            Tab(text: tabMap.keys.toList()[0],key: Key('${tabMap.keys.toList()[0]}_tab'),),
             Tab(
-              text: 'TimeLine',
-                key: Key('timeline_tab')
+              text: tabMap.keys.toList()[1],
+                key: Key('${tabMap.keys.toList()[0]}_tab')
             )
           ]),
         ),
         body: Container(
           constraints: BoxConstraints.expand(),
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          //       image: AssetImage('assets/coffee-min.jpg'),
-          //       fit: BoxFit.cover),
-          // ),
+
           child: LitAuthState(
 
             unauthenticated: Unauthenticated(),
               authenticated: TabBarView(children: [
-                Search(),
+                tabMap.values.toList()[0],
 
 
-                TimeLine()])),
+                tabMap.values.toList()[1]])),
         ),
         // This trailing comma makes auto-formatting nicer for build methods.
       ),
